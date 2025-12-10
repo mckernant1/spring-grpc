@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.grpc.sample.proto.HelloReply;
 import org.springframework.grpc.sample.proto.HelloRequest;
 import org.springframework.grpc.sample.proto.SimpleGrpc;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import io.grpc.stub.StreamObserver;
@@ -16,6 +17,9 @@ class GrpcServerService extends SimpleGrpc.SimpleImplBase {
 
 	@Override
 	public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            throw new RuntimeException("Authentication required");
+        }
 		log.info("Hello " + req.getName());
 		if (req.getName().startsWith("error")) {
 			throw new IllegalArgumentException("Bad name: " + req.getName());

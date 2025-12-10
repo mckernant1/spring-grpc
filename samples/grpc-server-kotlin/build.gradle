@@ -44,11 +44,14 @@ dependencies {
 
     implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
     implementation("io.grpc:grpc-kotlin-stub")
 	implementation("io.micrometer:context-propagation")
 
 	testImplementation 'org.springframework.grpc:spring-grpc-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	testRuntimeOnly "io.netty:netty-transport-native-epoll::linux-x86_64"
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
