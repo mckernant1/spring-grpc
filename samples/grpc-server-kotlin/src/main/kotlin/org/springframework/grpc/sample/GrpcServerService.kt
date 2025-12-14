@@ -1,19 +1,25 @@
 package org.springframework.grpc.sample
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import org.slf4j.LoggerFactory
 import org.springframework.grpc.sample.proto.HelloReply
 import org.springframework.grpc.sample.proto.HelloRequest
 import org.springframework.grpc.sample.proto.SimpleGrpcKt
-import org.springframework.stereotype.Service
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.stereotype.Service
 
 @Service
 class GrpcServerService : SimpleGrpcKt.SimpleCoroutineImplBase() {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(GrpcServerService::class.java)!!
+    }
+
     override suspend fun sayHello(request: HelloRequest): HelloReply {
 
-        if (SecurityContextHolder.getContext().authentication != null) {
+        if (SecurityContextHolder.getContext().authentication == null) {
+            logger.error("SecurityContextHolder authentication is null")
             throw RuntimeException(" SecurityContextHolder Authentication not set")
         }
 

@@ -43,9 +43,12 @@ open class GrpcServerApplication {
             .build()
     }
 
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<GrpcServerApplication>(*args)
+        }
+    }
 }
 
 
-fun main(args: Array<String>) {
-    runApplication<GrpcServerApplication>(*args)
-}
