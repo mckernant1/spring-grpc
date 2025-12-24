@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.grpc.sample.proto.HelloReply
 import org.springframework.grpc.sample.proto.HelloRequest
 import org.springframework.grpc.sample.proto.SimpleGrpcKt
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,7 +17,7 @@ class GrpcServerService : SimpleGrpcKt.SimpleCoroutineImplBase() {
 
     override suspend fun sayHello(request: HelloRequest): HelloReply {
 
-        if (SecurityContextHolder.getContext().authentication == null) {
+        if (KotlinSecurityContextHolder.getContext().authentication == null) {
             logger.error("SecurityContextHolder authentication is null")
             throw RuntimeException(" SecurityContextHolder Authentication not set")
         }

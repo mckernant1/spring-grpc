@@ -76,6 +76,10 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>context-propagation</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.grpc</groupId>
@@ -124,7 +128,19 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
